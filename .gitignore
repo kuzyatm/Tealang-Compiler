@@ -1,5 +1,8 @@
+build/
+shared/
 .vscode/
+.tmp/
+.research/
 
-src/*/*/bin
-src/*/*/obj
-src/TeaC
+src/*/bin/
+src/*/obj/

@@ -1,0 +1,10 @@
+[*.cs]
+
+# CS8605: Unboxing a possibly null value.
+# but if met certain enum, value is defined
+dotnet_diagnostic.CS8605.severity = none
+
+# CS8600: Converting null literal or possible null value to non-nullable type.
+# never null, no null keyword
+dotnet_diagnostic.CS8600.severity = none
+dotnet_diagnostic.CS8604.severity = none

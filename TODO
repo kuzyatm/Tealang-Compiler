@@ -1,0 +1,4 @@
+0. Make compiler stacktrace!
+- Also add: keyword + comment length in lines and symbols
+1. Make parser
+2. Вшить инфу о длине коментариев и айди

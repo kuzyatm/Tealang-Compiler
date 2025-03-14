@@ -1,0 +1,4 @@
+# TeaC IR
+[submodule "src/TeaC"]
+    path = src/TeaC
+    url = https://github.com/kuzyatm/TeaC.git
