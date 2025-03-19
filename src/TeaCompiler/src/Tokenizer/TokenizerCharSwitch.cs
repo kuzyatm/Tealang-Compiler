@@ -249,7 +249,7 @@ public static class TokenizerCharSwitch
         );
         var num = ctx.GetStringAndClear();
         if (num != string.Empty)
-            ctx.AddToken(TokenType.Number, num);
+            ctx.AddToken(TokenType.Number, new TeaNumber(num, TeaNumberType.None));
     }
 
     static BuilderAction GetKeywordOrId(char ch)
@@ -336,7 +336,7 @@ public static class TokenizerCharSwitch
                     tildaMet = false;
                 }
                 else {
-                    AddDivAndCh(ch);
+                    ctx.AddToken(TokenType.Symbol, TeaSymbol.Multiply);
                 }
             break;
             

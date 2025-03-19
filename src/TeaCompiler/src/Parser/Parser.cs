@@ -14,7 +14,7 @@ public static class Parser
         TeaCompilerReturn ret
     ) {
         if (asm is null) {
-            asm = new TeaAssembly();
+            asm   = new TeaAssembly();
             stack = new TeaErrorStackTrace(relativePathToFile);
         } else {
             asm.Reset();
@@ -46,7 +46,7 @@ public static class Parser
         foreach (var token in tokens)
         {
             // [ DEBUG LOG ]
-            // WriteLine(token);
+            DebugLogToken(token);
 
             switch (token.type)
             {
@@ -77,6 +77,8 @@ public static class Parser
                 case TokenType.Number:
                     var number = (TeaNumber)token.value;
 
+                    stack.Move(number.Number.Length);
+
                     CheckTypeError(token.type);
                 break;
 
@@ -88,7 +90,7 @@ public static class Parser
                     stack.NextChar();
 
                     // Update operator
-                    var res = Extender.TeaSymbolToOperCombine(oper, symbol); 
+                    TeaOper? res = Extender.TeaSymbolToOperCombine(oper, symbol); 
                     
                     // Handle result
                     if (res == null) {
@@ -115,10 +117,29 @@ public static class Parser
         return asm;
     }
 
-    
+    private static void DebugLogToken(Token token)
+    {
+        if (token.type is TokenType.Symbol) {
+            var value = (TeaSymbol)token.value;
+            switch (value) {
+                case TeaSymbol.NewLine:
+                case TeaSymbol.Space:
+                break;
+
+                default:
+                    Console.WriteLine(token);
+                break;
+            }
+            return;
+        }
+
+        Console.WriteLine(token);
+    }
+
     public static TeaObjLength SwitchKeyword(TeaKeywordType type, object? value_)
     {
         var len = new TeaObjLength();
+
         // Cast value
         T Cast<T>()
         {

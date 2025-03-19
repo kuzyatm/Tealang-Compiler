@@ -1,9 +1,8 @@
 using System.Text;
-
+/*
 public abstract class TeaStatement
 {
 	private TeaStatementType type;
-
 	private List<TeaStatement> children;
 
 	public TeaStatement(TeaStatementType type, List<TeaStatement> children)
@@ -50,3 +49,4 @@ public abstract class TeaStatement
 		}
 	}
 }
+*/

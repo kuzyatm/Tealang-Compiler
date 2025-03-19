@@ -38,7 +38,7 @@ public class TeaType : TeaChildObject {
 
     }
 }
-
+/*
 public class TeaMethod : TeaChildObject {
     
     public TeaMethod(AccessModifierType access)
@@ -47,6 +47,7 @@ public class TeaMethod : TeaChildObject {
 
     }
 }
+*/
 
 public class TeaFunc : TeaChildObject {
     public TeaFunc(AccessModifierType access)

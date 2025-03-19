@@ -126,6 +126,20 @@ public static partial class Extender
 
         switch (symbol)
         {
+            // ,
+            case TeaSymbol.Comma:
+                switch (symbol)
+                {
+                    case TeaSymbol.None:
+                        Set(TeaOper.Separ);
+                    break;
+
+                    default:
+                        Error();
+                    break;
+                }
+            break;
+            
             //. ..
             case TeaSymbol.Dot:
                 switch (oper)
@@ -277,6 +291,10 @@ public static partial class Extender
             case TeaSymbol.Multiply:
                 switch (oper)
                 {
+                    case TeaOper.None:
+                        Set(TeaOper.Multiply);
+                    break;
+
                     default:
                         Error();
                     break;
@@ -531,7 +549,8 @@ public static partial class Extender
                     break;
                 }
             break;
-            
+
+            // ;         
             case TeaSymbol.Semicolon:
             break;
             

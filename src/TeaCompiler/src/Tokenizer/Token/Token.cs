@@ -1,5 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
-
 public struct Token
 {
     public TokenType type;
