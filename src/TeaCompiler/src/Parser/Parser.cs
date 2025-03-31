@@ -1,12 +1,11 @@
-using System.Collections.ObjectModel;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
+using static TeaNode;
 using static System.Console;
 
 public static class Parser
 {
     public static TeaAssembly asm = null!;
     public static TeaErrorStackTrace stack = null!;
+    public static ASTBuilder astBuilder = null!;
 
     public static TeaAssembly Parse (
         string relativePathToFile,
@@ -14,17 +13,19 @@ public static class Parser
         TeaCompilerReturn ret
     ) {
         if (asm is null) {
-            asm   = new TeaAssembly();
-            stack = new TeaErrorStackTrace(relativePathToFile);
+            asm        = new TeaAssembly();
+            stack      = new TeaErrorStackTrace(relativePathToFile);
+            astBuilder = new ();
         } else {
             asm.Reset();
+            astBuilder.Reset();
             stack.Reset(relativePathToFile);
         }
 
-        var oper     = TeaOper.None;
+        var oper     = TeaOperType.None;
         var prevType = TokenType.None;
 
-        void CheckTypeError(TokenType nextType) {
+        void CheckTypeError(TokenType nextType, TokenType prevType) {
             switch (nextType) {
                 case TokenType.Id:
                 case TokenType.Number:
@@ -32,10 +33,9 @@ public static class Parser
                     if (prevType
                         is TokenType.Id
                         or TokenType.Number
-                        or TokenType.String
-                    )
-                        ret.Error(
-                            TeaError.InvalidSyntax(stack.GetErrorSource(), prevType, nextType));
+                        or TokenType.String )
+                            ret.Error(
+                                TeaError.InvalidSyntax(stack.GetErrorSource(), prevType, nextType));
                 break;
                 
                 default:
@@ -46,7 +46,7 @@ public static class Parser
         foreach (var token in tokens)
         {
             // [ DEBUG LOG ]
-            DebugLogToken(token);
+            // DebugLogToken(token);
 
             switch (token.type)
             {
@@ -54,23 +54,32 @@ public static class Parser
                     var (kwType, kwValue) = (ValueTuple<TeaKeywordType, object?>)token.value;
                     var len = SwitchKeyword(kwType, kwValue);
                     stack.Move(len);
+
+                    // astBuilder.Keyword(keyword);
                 break;
 
 
                 case TokenType.Id:
-                    oper = TeaOper.None;
                     var id = (string)token.value;
 
                     stack.Move(id!.Length);
 
-                    CheckTypeError(token.type);
+                    astBuilder.AddOper(oper);
+                    astBuilder.AddId(id);
+
+                    oper = TeaOperType.None;
+                    // CheckTypeError(token.type, prevType);
                 break;
 
                 
                 case TokenType.String:
                     var str = (string)token.value;
 
-                    CheckTypeError(token.type);
+                    astBuilder.AddOper(oper);
+                    astBuilder.AddStr(str);
+
+                    // CheckTypeError(token.type, prevType);
+                    oper = TeaOperType.None;
                 break;
 
 
@@ -79,7 +88,11 @@ public static class Parser
 
                     stack.Move(number.Number.Length);
 
-                    CheckTypeError(token.type);
+                    astBuilder.AddOper(oper);
+                    astBuilder.AddNumber(number);
+
+                    // CheckTypeError(token.type, prevType);
+                    oper = TeaOperType.None;
                 break;
 
 
@@ -90,13 +103,14 @@ public static class Parser
                     stack.NextChar();
 
                     // Update operator
-                    TeaOper? res = Extender.TeaSymbolToOperCombine(oper, symbol); 
+                    TeaOperType? res = Extender.TeaSymbolToOperCombine(oper, symbol); 
                     
                     // Handle result
                     if (res == null) {
                         ret.Error(TeaError.SymbolUndefined(stack.GetErrorSource(), symbol, oper));
-                    } else {
-                        oper = (TeaOper)res;
+                    } else if (res != TeaOperType.None) {
+                        // WriteLine($"opeur: {res}");
+                        oper = (TeaOperType)res;
                     }
                 break;
 
@@ -110,29 +124,16 @@ public static class Parser
                     }
                 break;
             }
-
             prevType = token.type;
         }
+        astBuilder.AddOper(oper);
 
+        astBuilder.DebugLog();
         return asm;
     }
 
     private static void DebugLogToken(Token token)
     {
-        if (token.type is TokenType.Symbol) {
-            var value = (TeaSymbol)token.value;
-            switch (value) {
-                case TeaSymbol.NewLine:
-                case TeaSymbol.Space:
-                break;
-
-                default:
-                    Console.WriteLine(token);
-                break;
-            }
-            return;
-        }
-
         Console.WriteLine(token);
     }
 

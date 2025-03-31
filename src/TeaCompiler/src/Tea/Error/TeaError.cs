@@ -22,15 +22,15 @@ public struct TeaError
 	{
 		return Create(
 			TeaErrorType.FileDoesNotExist, src,
-			$"file \"{filePath}\","
+			$"file \"{Path.GetFullPath(filePath)}\","
 		);
 	}
 
 	public static TeaError SymbolUndefined
-	(TeaErrorSource src, TeaSymbol symbol, TeaOper prev)
+	(TeaErrorSource src, TeaSymbol symbol, TeaOperType prev)
 	{
 		var sym = Extender.ToString(symbol);
-		var oper = prev is TeaOper.None
+		var oper = prev is TeaOperType.None
 				? Extender.ToString(prev)
 				: sym;
 		

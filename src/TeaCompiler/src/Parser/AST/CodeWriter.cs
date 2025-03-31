@@ -5,6 +5,8 @@ public class CodeWriter
     CodeWriterDg dg;
     int depth;
 
+    public static readonly CodeWriter Console = new (System.Console.WriteLine);
+
     public CodeWriter(CodeWriterDg dg)
     {
         this.dg = dg;

@@ -1,4 +1,4 @@
-﻿const string DIR = @"e:\home\projs\Tea\Tea-Compiler\shared\";
+﻿const string DIR = @"../../shared/";
 string GetDir(string path) => DIR + path;
 
 
@@ -12,7 +12,7 @@ TeaCompilerOptions GetDebugCompilerOptions()
     var opts = TeaCompilerOptions.GetDefault();
     // opts.SetCompilingStage(TeaCompilingStage.Tokenize);
 
-    opts.AddFile(GetDir("Main.tea."));
+    opts.AddFile(GetDir("Main.tea"));
     // opts.AddFile(GetDir("NotMain.tea"));
     
     return opts;

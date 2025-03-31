@@ -1,5 +1,5 @@
 // TODO: implement flag system for operators
-public enum TeaOper
+public enum TeaOperType
 {
 	// None for error handling
 	None = 0,

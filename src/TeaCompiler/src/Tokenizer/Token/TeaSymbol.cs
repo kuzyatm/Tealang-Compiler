@@ -114,15 +114,15 @@ public static partial class Extender
             return char.ToString((char)symbol);
     }
 
-    public static TeaOper? TeaSymbolToOperCombine(TeaOper oper, TeaSymbol symbol)
+    public static TeaOperType? TeaSymbolToOperCombine(TeaOperType oper, TeaSymbol symbol)
     {
-        TeaOper? ret = TeaOper.None;
+        TeaOperType? ret = TeaOperType.None;
         // TODO: mark error
         void Error()
         {
             ret = null;
         }
-        void Set(TeaOper set) => ret = set;
+        void Set(TeaOperType set) => ret = set;
 
         switch (symbol)
         {
@@ -131,7 +131,7 @@ public static partial class Extender
                 switch (symbol)
                 {
                     case TeaSymbol.None:
-                        Set(TeaOper.Separ);
+                        Set(TeaOperType.Separ);
                     break;
 
                     default:
@@ -145,13 +145,13 @@ public static partial class Extender
                 switch (oper)
                 {
                     // .
-                    case TeaOper.None:
-                        Set(TeaOper.GetMember);
+                    case TeaOperType.None:
+                        Set(TeaOperType.GetMember);
                     break;
                     
                     // ..
-                    case TeaOper.GetMember:
-                        Set(TeaOper.Range);
+                    case TeaOperType.GetMember:
+                        Set(TeaOperType.Range);
                     break;
 
                     // error
@@ -166,78 +166,78 @@ public static partial class Extender
                 switch (oper)
                 {
                     // =
-                    case TeaOper.None:
-                        Set(TeaOper.Assign);
+                    case TeaOperType.None:
+                        Set(TeaOperType.Assign);
                     break;
                     
                     // ==
-                    case TeaOper.Assign:
-                        Set(TeaOper.Equals);
+                    case TeaOperType.Assign:
+                        Set(TeaOperType.Equals);
                     break;
 
                     // +=
-                    case TeaOper.Plus:
-                        Set(TeaOper.PlusAssign);
+                    case TeaOperType.Plus:
+                        Set(TeaOperType.PlusAssign);
                     break;
 
                     // -=
-                    case TeaOper.Minus:
-                        Set(TeaOper.MinusAssign);
+                    case TeaOperType.Minus:
+                        Set(TeaOperType.MinusAssign);
                     break;
 
                     // *=
-                    case TeaOper.Multiply:
-                        Set(TeaOper.MultiplyAssign);
+                    case TeaOperType.Multiply:
+                        Set(TeaOperType.MultiplyAssign);
                     break;
 
                     // /=
-                    case TeaOper.DivideResult:
-                        Set(TeaOper.DivideResultAssign);
+                    case TeaOperType.DivideResult:
+                        Set(TeaOperType.DivideResultAssign);
                     break;
 
                     // %=
-                    case TeaOper.DivideModulus:
-                        Set(TeaOper.DivideModulusAssign);
+                    case TeaOperType.DivideModulus:
+                        Set(TeaOperType.DivideModulusAssign);
                     break;
 
                     // &=
-                    case TeaOper.BitAnd:
-                        Set(TeaOper.BitAndAssign);
+                    case TeaOperType.BitAnd:
+                        Set(TeaOperType.BitAndAssign);
                     break;
 
                     // |=
-                    case TeaOper.BitOr:
-                        Set(TeaOper.BitOrAssign);
+                    case TeaOperType.BitOr:
+                        Set(TeaOperType.BitOrAssign);
                     break;
 
                     // ^=
-                    case TeaOper.BitXor:
-                        Set(TeaOper.BitXorAssign);
+                    case TeaOperType.BitXor:
+                        Set(TeaOperType.BitXorAssign);
                     break;
 
                     // ~=
-                    case TeaOper.BitNot:
-                        Set(TeaOper.BitNotAssign);
+                    case TeaOperType.BitNot:
+                        Set(TeaOperType.BitNotAssign);
                     break;
 
                     // >>=
-                    case TeaOper.BitShiftR:
-                        Set(TeaOper.BitShiftRAssign);
+                    case TeaOperType.BitShiftR:
+                        Set(TeaOperType.BitShiftRAssign);
                     break;
 
                     // >=
-                    case TeaOper.Greater:
-                        Set(TeaOper.GreaterOrEquals);
+                    case TeaOperType.Greater:
+                        Set(TeaOperType.GreaterOrEquals);
                     break;
 
                     // <<=
-                    case TeaOper.BitShiftL:
-                        Set(TeaOper.BitShiftLAssign);
+                    case TeaOperType.BitShiftL:
+                        Set(TeaOperType.BitShiftLAssign);
                     break;
 
                     // <=
-                    case TeaOper.Less:
-                        Set(TeaOper.LessOrEquals);
+                    case TeaOperType.Less:
+                        Set(TeaOperType.LessOrEquals);
                     break;
 
                     // error
@@ -252,13 +252,13 @@ public static partial class Extender
                 switch (oper)
                 {
                     // +
-                    case TeaOper.None:
-                        Set(TeaOper.Plus);
+                    case TeaOperType.None:
+                        Set(TeaOperType.Plus);
                     break;
 
                     // ++
-                    case TeaOper.Plus:
-                        Set(TeaOper.Increment);
+                    case TeaOperType.Plus:
+                        Set(TeaOperType.Increment);
                     break;
 
                     default:
@@ -272,13 +272,13 @@ public static partial class Extender
                 switch (oper)
                 {
                     // -
-                    case TeaOper.None:
-                        Set(TeaOper.Minus);
+                    case TeaOperType.None:
+                        Set(TeaOperType.Minus);
                     break;
 
                     // --
-                    case TeaOper.Minus:
-                        Set(TeaOper.Decrement);
+                    case TeaOperType.Minus:
+                        Set(TeaOperType.Decrement);
                     break;
 
                     default:
@@ -291,8 +291,8 @@ public static partial class Extender
             case TeaSymbol.Multiply:
                 switch (oper)
                 {
-                    case TeaOper.None:
-                        Set(TeaOper.Multiply);
+                    case TeaOperType.None:
+                        Set(TeaOperType.Multiply);
                     break;
 
                     default:
@@ -306,8 +306,8 @@ public static partial class Extender
                 switch (oper)
                 {
                     // /
-                    case TeaOper.None:
-                        Set(TeaOper.DivideResult);
+                    case TeaOperType.None:
+                        Set(TeaOperType.DivideResult);
                     break;
 
                     default:
@@ -321,8 +321,8 @@ public static partial class Extender
                 switch (oper)
                 {
                     // %
-                    case TeaOper.None:
-                        Set(TeaOper.DivideModulus);
+                    case TeaOperType.None:
+                        Set(TeaOperType.DivideModulus);
                     break;
 
                     default:
@@ -336,13 +336,13 @@ public static partial class Extender
                 switch (oper)
                 {
                     // &
-                    case TeaOper.None:
-                        Set(TeaOper.BitAnd);
+                    case TeaOperType.None:
+                        Set(TeaOperType.BitAnd);
                     break;
 
                     // &&
-                    case TeaOper.BitAnd:
-                        Set(TeaOper.LogAnd);
+                    case TeaOperType.BitAnd:
+                        Set(TeaOperType.LogAnd);
                     break;
 
                     default:
@@ -356,13 +356,13 @@ public static partial class Extender
                 switch (oper)
                 {
                     // |
-                    case TeaOper.None:
-                        Set(TeaOper.BitOr);
+                    case TeaOperType.None:
+                        Set(TeaOperType.BitOr);
                     break;
 
                     // ||
-                    case TeaOper.BitOr:
-                        Set(TeaOper.LogOr);
+                    case TeaOperType.BitOr:
+                        Set(TeaOperType.LogOr);
                     break;
 
                     default:
@@ -376,8 +376,8 @@ public static partial class Extender
                 switch (oper)
                 {
                     // ^
-                    case TeaOper.None:
-                        Set(TeaOper.BitXor);
+                    case TeaOperType.None:
+                        Set(TeaOperType.BitXor);
                     break;
 
                     default:
@@ -391,8 +391,8 @@ public static partial class Extender
                 switch (oper)
                 {
                     // ~
-                    case TeaOper.None:
-                        Set(TeaOper.BitNot);
+                    case TeaOperType.None:
+                        Set(TeaOperType.BitNot);
                     break;
 
                     default:
@@ -406,18 +406,18 @@ public static partial class Extender
                 switch (oper)
                 {
                     // >
-                    case TeaOper.None:
-                        Set(TeaOper.Greater);
+                    case TeaOperType.None:
+                        Set(TeaOperType.Greater);
                     break;
 
                     // >>
-                    case TeaOper.Greater:
-                        Set(TeaOper.BitShiftR);
+                    case TeaOperType.Greater:
+                        Set(TeaOperType.BitShiftR);
                     break;
                     
                     // ->
-                    case TeaOper.Minus:
-                        Set(TeaOper.ArrowRight);
+                    case TeaOperType.Minus:
+                        Set(TeaOperType.ArrowRight);
                     break;
 
                     default:
@@ -431,13 +431,13 @@ public static partial class Extender
                 switch (oper)
                 {
                     // <
-                    case TeaOper.None:
-                        Set(TeaOper.Less);
+                    case TeaOperType.None:
+                        Set(TeaOperType.Less);
                     break;
 
                     // <<
-                    case TeaOper.Less:
-                        Set(TeaOper.BitShiftL);
+                    case TeaOperType.Less:
+                        Set(TeaOperType.BitShiftL);
                     break;
 
                     default:
@@ -450,8 +450,8 @@ public static partial class Extender
             case TeaSymbol.Colon:
                 switch (oper)
                 {
-                    case TeaOper.None:
-                        Set(TeaOper.DoubleDot);
+                    case TeaOperType.None:
+                        Set(TeaOperType.DoubleDot);
                     break;
 
                     default:
@@ -464,8 +464,8 @@ public static partial class Extender
             case TeaSymbol.BraceOpen:
                 switch (oper)
                 {
-                    case TeaOper.None:
-                        Set(TeaOper.BraceOpen);
+                    case TeaOperType.None:
+                        Set(TeaOperType.BraceOpen);
                     break;
 
                     default:
@@ -478,10 +478,10 @@ public static partial class Extender
             case TeaSymbol.BraceClose:
                 switch (oper)
                 {
-                    case TeaOper.None:
-                        Set(TeaOper.BraceClose);
+                    case TeaOperType.None:
+                        Set(TeaOperType.BraceClose);
                     break;
-                    case TeaOper.BraceOpen:
+                    case TeaOperType.BraceOpen:
                     break;
 
                     default:
@@ -494,8 +494,8 @@ public static partial class Extender
             case TeaSymbol.ParenthesisOpen:
                 switch (oper)
                 {
-                    case TeaOper.None:
-                        Set(TeaOper.ParenthesisOpen);
+                    case TeaOperType.None:
+                        Set(TeaOperType.ParenthesisOpen);
                     break;
 
                     default:
@@ -508,10 +508,10 @@ public static partial class Extender
             case TeaSymbol.ParenthesisClose:
                 switch (oper)
                 {
-                    case TeaOper.None:
-                        Set(TeaOper.ParenthesisClose);
+                    case TeaOperType.None:
+                        Set(TeaOperType.ParenthesisClose);
                     break;
-                    case TeaOper.ParenthesisOpen:
+                    case TeaOperType.ParenthesisOpen:
                     break;
 
                     default:
@@ -524,8 +524,8 @@ public static partial class Extender
             case TeaSymbol.BracketOpen:
                 switch (oper)
                 {
-                    case TeaOper.None:
-                        Set(TeaOper.BracketOpen);
+                    case TeaOperType.None:
+                        Set(TeaOperType.BracketOpen);
                     break;
 
                     default:
@@ -538,10 +538,10 @@ public static partial class Extender
             case TeaSymbol.BracketClose:
                 switch (oper)
                 {
-                    case TeaOper.None:
-                        Set(TeaOper.BracketClose);
+                    case TeaOperType.None:
+                        Set(TeaOperType.BracketClose);
                     break;
-                    case TeaOper.BracketOpen:
+                    case TeaOperType.BracketOpen:
                     break;
 
                     default:
@@ -568,55 +568,55 @@ public static partial class Extender
         return ret;
     }
 
-    public static string ToString(TeaOper prev)
+    public static string ToString(TeaOperType oper)
     {
-        return prev switch {
-            TeaOper.Assign               => "=",
-            TeaOper.Equals               => "==",
-            TeaOper.Inequals             => "!=",
-            TeaOper.Plus                 => "+",
-            TeaOper.PlusAssign           => "+=",
-            TeaOper.Increment            => "++",
-            TeaOper.Minus                => "-",
-            TeaOper.MinusAssign          => "-=",
-            TeaOper.Decrement            => "--",
-            TeaOper.Multiply             => "*",
-            TeaOper.MultiplyAssign       => "*=",
-            TeaOper.DivideResult         => "/",
-            TeaOper.DivideResultAssign   => "/=",
-            TeaOper.DivideModulus        => "%",
-            TeaOper.DivideModulusAssign  => "%=",
-            TeaOper.Separ                => ",",
-            TeaOper.DoubleDot            => ":",
-            TeaOper.Bang                 => "!",
-            TeaOper.GetMember            => ".",
-            TeaOper.Range                => "..",
-            TeaOper.Greater              => ">",
-            TeaOper.GreaterOrEquals      => ">=",
-            TeaOper.BitShiftR            => ">>",
-            TeaOper.BitShiftRAssign      => ">>=",
-            TeaOper.Less                 => "<",
-            TeaOper.LessOrEquals         => "<=",
-            TeaOper.BitShiftL            => "<<",
-            TeaOper.BitShiftLAssign      => "<<=",
-            TeaOper.ArrowRight           => "->",
-            TeaOper.BracketOpen          => "[",
-            TeaOper.BracketClose         => "]",
-            TeaOper.ParenthesisOpen      => "(",
-            TeaOper.ParenthesisClose     => ")",
-            TeaOper.BraceOpen            => "{",
-            TeaOper.BraceClose           => "}",
-            TeaOper.BitAnd               => "&",
-            TeaOper.LogAnd               => "&&",
-            TeaOper.BitAndAssign         => "&=",
-            TeaOper.BitOr                => "|",
-            TeaOper.LogOr                => "||",
-            TeaOper.BitOrAssign          => "|=",
-            TeaOper.BitXor               => "^",
-            TeaOper.BitXorAssign         => "^=",
-            TeaOper.BitNot               => "~",
-            TeaOper.BitNotAssign         => "~=",
-            _                            => string.Empty,
+        return oper switch {
+            TeaOperType.Assign               => "=",
+            TeaOperType.Equals               => "==",
+            TeaOperType.Inequals             => "!=",
+            TeaOperType.Plus                 => "+",
+            TeaOperType.PlusAssign           => "+=",
+            TeaOperType.Increment            => "++",
+            TeaOperType.Minus                => "-",
+            TeaOperType.MinusAssign          => "-=",
+            TeaOperType.Decrement            => "--",
+            TeaOperType.Multiply             => "*",
+            TeaOperType.MultiplyAssign       => "*=",
+            TeaOperType.DivideResult         => "/",
+            TeaOperType.DivideResultAssign   => "/=",
+            TeaOperType.DivideModulus        => "%",
+            TeaOperType.DivideModulusAssign  => "%=",
+            TeaOperType.Separ                => ",",
+            TeaOperType.DoubleDot            => ":",
+            TeaOperType.Bang                 => "!",
+            TeaOperType.GetMember            => ".",
+            TeaOperType.Range                => "..",
+            TeaOperType.Greater              => ">",
+            TeaOperType.GreaterOrEquals      => ">=",
+            TeaOperType.BitShiftR            => ">>",
+            TeaOperType.BitShiftRAssign      => ">>=",
+            TeaOperType.Less                 => "<",
+            TeaOperType.LessOrEquals         => "<=",
+            TeaOperType.BitShiftL            => "<<",
+            TeaOperType.BitShiftLAssign      => "<<=",
+            TeaOperType.ArrowRight           => "->",
+            TeaOperType.BracketOpen          => "[",
+            TeaOperType.BracketClose         => "]",
+            TeaOperType.ParenthesisOpen      => "(",
+            TeaOperType.ParenthesisClose     => ")",
+            TeaOperType.BraceOpen            => "{",
+            TeaOperType.BraceClose           => "}",
+            TeaOperType.BitAnd               => "&",
+            TeaOperType.LogAnd               => "&&",
+            TeaOperType.BitAndAssign         => "&=",
+            TeaOperType.BitOr                => "|",
+            TeaOperType.LogOr                => "||",
+            TeaOperType.BitOrAssign          => "|=",
+            TeaOperType.BitXor               => "^",
+            TeaOperType.BitXorAssign         => "^=",
+            TeaOperType.BitNot               => "~",
+            TeaOperType.BitNotAssign         => "~=",
+            _                            => "{oper}",
         };
     }
 }

@@ -9,6 +9,8 @@ public class TeaErrorSource
 		return ReadFileCode();
 	}
 
+	public static readonly TeaErrorSource NonFile = new (string.Empty, 0, 0);
+
 	public TeaErrorSource(string file, int line, int symbol)
 	{
 		this.File = file;
@@ -18,6 +20,8 @@ public class TeaErrorSource
 
 	string ReadFileCode()
 	{
+		if (line + symbol == 0)
+			return string.Empty;
 		string str;
 		int line_ = 0;
 
@@ -35,5 +39,11 @@ public class TeaErrorSource
 
 		// QF
 		return string.Empty;
+	}
+
+	public void Reset(string file) {
+		this.File   = file;
+		this.line   = 0;
+		this.symbol = 0;
 	}
 }

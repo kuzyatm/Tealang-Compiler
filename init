@@ -1,0 +1,9 @@
+#!/bin/bash
+# `cat init | bash`
+# run to initialize everything
+dir=$(basename "$(pwd)")
+if [ "$dir" == "Tealang-Compiler" ]; then
+    echo "Good"
+else
+    echo "Run this file from root, you're doing this from `$($dir)`"
+fi

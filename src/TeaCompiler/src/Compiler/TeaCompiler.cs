@@ -1,9 +1,7 @@
-using System.Runtime.InteropServices.Marshalling;
-
 public static class TeaCompiler
 {
     static TeaCompilerOptions? options;
-    static TeaErrorStackTrace? stack;
+    static TeaErrorStackTrace stack = new (string.Empty);
 
     public static void
     SetCompilerOptions
@@ -55,9 +53,11 @@ public static class TeaCompiler
             var fileInfo = new FileInfo(filePath);
             if (!fileInfo.Exists)
             {
-                ret.Error(TeaError.FileDoesNotExist(stack.GetErrorSource(), filePath));
+                ret.Error(TeaError.FileDoesNotExist(TeaErrorSource.NonFile, filePath));
                 goto END;
             }
+
+            stack.Reset(filePath);
 
             // Tokenize:
         #region Tokenizing
